@@ -12,7 +12,16 @@ token = requests.post('https://www.arcgis.com/sharing/rest/oauth2/token/',
 
 print(token.json()['access_token'])
 
-data = requests.post('http://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve?stops=-117.1957,34.0564; -117.184,34.0546', params={
+
+lat1 = '42.3417707'
+long1 = '-83.0601714'
+lat2 = '42.3387803'
+long2 = '-83.0572124'
+
+coordinates = long1 + "," + lat1 + "; " + long2 + "," + lat2
+
+data = requests.post('http://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve?stops=' + coordinates, params={
+
   'f': 'json',
   'token': token.json()['access_token'],
   'studyAreas': '[{"geometry":{"x":-117.1956,"y":34.0572}}]'
