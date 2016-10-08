@@ -18,4 +18,9 @@ data = requests.post('http://route.arcgis.com/arcgis/rest/services/World/Route/N
   'studyAreas': '[{"geometry":{"x":-117.1956,"y":34.0572}}]'
 })
 
-print(data.json())
+# Directions is a list
+print(data.json()['directions'][0])
+print("-----------------------------------------")
+# routes is a dictionary
+print(data.json()['routes']['features'][0]['geometry'])
+print(data.json().keys())
