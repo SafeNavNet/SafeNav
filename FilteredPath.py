@@ -1,11 +1,12 @@
+# print(data.json().keys()) to find all keys in dict
 import requests
 
 
-class Path:
+class FilteredPath:
     def get_data(lat1, long1, lat2, long2):
         # generate a token with your client id and client secret
         # print(token.json()['access_token'])
-        token = Path.gen_token()
+        token = FilteredPath.gen_token()
         coordinates = long1 + "," + lat1 + "; " + long2 + "," + lat2
 
         data = requests.post('http://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve?stops=' + coordinates, params={
@@ -26,20 +27,20 @@ class Path:
         return token
 
     def filter_path(path):
+        filtered_path = []
+        counter = 0
         for x in path:
-            long1 = x[0]
-            lat1 = x[1]
-            print("latitude: " + lat1 + "longitude: " + long1)
-
-data = Path.get_data('42.3417707', '-83.0601714', '42.3387803', '-83.0572124')
-print(data)
+            if(counter % 3 == 0):
+                filtered_path.append(x)
+            counter += 1
+        return filtered_path
 
 
 
-# Directions is a list
-# print(data.json()['directions'][0])
-# print("-----------------------------------------")
-# routes is a dictionary
-# print(data.json()['routes']['features'][0]['geometry']['paths'][0])
-# print(data.json().keys())
-
+data1 = FilteredPath.get_data('42.3417707', '-83.0601714', '42.3387803', '-83.0572124')
+print(data1)
+print
+# data2 = FilteredPath.get_data('42.3417707', '-83.0601714', '9.9280694', '-84.0907246')
+# print(data2)
+data3 = FilteredPath.filter_path(data1)
+print(data3)
