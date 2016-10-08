@@ -22,5 +22,5 @@ data = requests.post('http://route.arcgis.com/arcgis/rest/services/World/Route/N
 print(data.json()['directions'][0])
 print("-----------------------------------------")
 # routes is a dictionary
-print(data.json()['routes']['features'][0]['geometry'])
+print(data.json()['routes']['features'][0]['geometry']['paths'])
 print(data.json().keys())
